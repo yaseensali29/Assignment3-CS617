@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boston PD Data Story</title>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      line-height: 1.5;
+    }
+    h1, h2 {
+      margin-bottom: 10px;
+    }
+    .chart {
+      width: 100%;
+      max-width: 1000px;
+      height: 500px;
+      margin: 30px auto;
+    }
+    .story {
+      max-width: 1000px;
+      margin: 0 auto 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="story">
+    <h1>Boston Police Incident Data Story</h1>
+    <p>
+      This project explores the most common incident types in the Boston Police dataset
+      and shows how their frequency changes throughout the day. The first chart gives an
+      overview of the most frequent incident types, while the second chart shows that these
+      incidents follow different hourly patterns.
+    </p>
+  </div>
+
+  <div class="story">
+    <h2>Chart 1: Top Incident Types</h2>
+    <p>
+      This chart shows the most common incident categories in the sample data.
+    </p>
+  </div>
+  <div id="chart1" class="chart"></div>
+
+  <div class="story">
+    <h2>Chart 2: Hourly Patterns of Top Incident Types</h2>
+    <p>
+      This chart shows how the top incident types vary across the hours of the day.
+    </p>
+  </div>
+  <div id="chart2" class="chart"></div>
+
+  <script>
+    // Chart 1 data
+    const topLabels = [
+      "INVESTIGATE PERSON",
+      "M/V - LEAVING SCENE - PROPERTY DAMAGE",
+      "SICK ASSIST",
+      "LARCENY SHOPLIFTING",
+      "ASSAULT - SIMPLE"
+    ];
+
+    const topValues = [1158, 1019, 510, 443, 426]; 
+
+    const barTrace = {
+      x: topLabels,
+      y: topValues,
+      type: "bar"
+    };
+
+    const barLayout = {
+      title: "Top 5 Incident Types in Boston",
+      xaxis: { title: "Incident Type" },
+      yaxis: { title: "Count" }
+    };
+
+    Plotly.newPlot("chart1", [barTrace], barLayout);
+
+    // ===== Chart 2 data =====
+    const lineData = [
+      {
+        name: "INVESTIGATE PERSON",
+        x: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+        y: [102,22,28,12,16,12,14,23,43,43,67,88,78,62,69,56,75,57,81,57,55,35,37,27],
+        mode: "lines+markers",
+        type: "scatter"
+      },
+      {
+        name: "M/V - LEAVING SCENE - PROPERTY DAMAGE",
+        x: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+        y: [35,11,10,6,5,4,15,14,21,26,23,21,29,31,27,32,32,39,34,16,16,28,20,15],
+        mode: "lines+markers",
+        type: "scatter"
+      },
+      {
+        name: "SICK ASSIST",
+        x: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+        y: [70,35,18,24,10,18,22,18,21,40,67,54,65,52,67,53,46,76,53,50,51,43,35,31],
+        mode: "lines+markers",
+        type: "scatter"
+      }
+    ];
+
+    const lineLayout = {
+      title: "Hourly Patterns for the Top 3 Incident Types",
+      xaxis: { title: "Hour of Day", dtick: 1 },
+      yaxis: { title: "Count" }
+    };
+
+    Plotly.newPlot("chart2", lineData, lineLayout);
+  </script>
+</body>
+</html>
